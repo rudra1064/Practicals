@@ -1,0 +1,134 @@
+//Department of Computer Engineering has student
+//club named Pinnacle Club. Students of second,
+//third and final year of department can be granted
+//membership on request. Similarly one may cancel
+//the membership of club. First node is reserved for
+//president of club and last node is reserved for
+//secretary of club. Write C++ program to maintain
+//club members information using singly linked list.
+//Store student PRN and Name. Write functions to :
+//a) Add and delete the members as well as president
+//or even secretary.
+//b) Compute total number of members of club
+//c) Display members
+//d) Two linked lists exists for two divisions.
+//Concatenate two lists.
+#include<iostream>
+using namespace std;
+class node{
+	public:
+	string prn;
+	string name;
+	node*next;
+	node(string gprn,string gname){
+		prn=gprn;
+		name=gname;
+		next=NULL;
+	}
+};
+class linkedlist{
+public:
+node*head;
+int count=0;
+linkedlist(){
+	head=NULL;
+}
+void addpresident(string prn,string name){
+	node*gnode=new node(prn,name);
+	if(head==NULL){
+		head=gnode;
+		count+=1;
+		return;
+	}
+	gnode->next=head;
+	head=gnode;
+	count+=1;
+}
+void deletepresident(){	
+	if(head==NULL){
+		cout<<"LL is Empty";
+	}
+	node*temp=head;
+	head=head->next;
+	delete temp;
+	count-=1;
+}
+void deletemember(){	
+	if(head==NULL){
+		cout<<"LL is Empty";
+	}
+	node*president=head;
+	node*todelete=president->next;
+	president->next=president->next->next;
+	
+	delete todelete;
+	count-=1;
+}
+void deletesecretary(){	
+	if(head==NULL){
+		cout<<"LL is Empty";
+	}
+	node*temp=head;
+	while(temp->next->next!=NULL){
+		temp=temp->next;
+	}
+	node*todelete=temp->next;
+	temp->next=NULL;
+	delete todelete;
+    count-=1;
+}
+void addmember(string prn,string name){
+	if (head==NULL){
+		cout<<"President Must be added first";
+		count+=1;
+		return;
+	}
+	node*new_node=new node(prn,name);
+	node*president=head;
+	new_node->next=president->next;
+	president->next=new_node;
+	count+=1;
+}
+void addsecretary(string prn,string name){
+	if (head==NULL){
+		cout<<"President Must be added first";
+		count+=1;
+		return;
+	}
+	node*new_node=new node(prn,name);
+	node*temp=head;
+	while(temp->next!=NULL){
+		temp=temp->next;
+	}
+	temp->next=new_node;
+	count+=1;
+}
+
+
+void display(){
+	node*temp=head;
+	while(temp!=NULL){
+		cout<<temp->prn<<" ";
+		cout<<temp->name<<"-> ";
+		temp=temp->next;
+	}
+	cout<<"NULL"<<endl;
+	
+}
+};
+int main()
+{
+linkedlist l1;
+l1.addpresident("1","harry");
+l1.addpresident("2","Rudra");
+l1.addsecretary("3","larry");
+l1.addmember("4","man");
+l1.display();
+l1.deletemember();
+l1.deletepresident();
+l1.display();
+l1.deletesecretary();
+l1.display();
+cout<<l1.count<<endl;
+return 0;
+linked l2;
