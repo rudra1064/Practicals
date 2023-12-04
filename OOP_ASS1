@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+class complex{
+	double real;
+	double img;
+	public:
+		complex();
+		friend istream &operator >>(istream &,complex &);
+		friend ostream &operator<<(ostream &,const complex &);
+		complex operator+(complex);
+		complex operator*(complex);
+};
+complex::complex(){
+    real=0;
+    img=0;
+}
+istream &operator >>(istream &,complex &i){
+    cin>>i.real>>i.img;
+    return cin;
+}
+ostream &operator<<(ostream &,const complex &d){
+    cout<<d.real<<"+"<<d.img<<"i"<<endl;
+    return cout;
+}
+complex complex::operator+(complex c1){
+    complex temp;
+    temp.real=real+c1.real;
+    temp.img=img+c1.img;
+    return (temp);
+}
+complex complex::operator*(complex c2){
+    complex tmp;
+    tmp.real=real*c2.real-img*c2.img;
+    tmp.img=real*c2.img+img*c2.real;
+    return (tmp);
+}
+int main() {
+    complex C1,C2,C3,C4;
+    cout<<C1<<endl;
+    cout<<"Enter the First  elements:";
+    cin>>C1;
+    cout<<"Enter the Second  elements:";
+    cin>>C2;
+    C3=C1+C2;
+    C4=C1*C2;
+    cout<<"Addition is :";
+    cout<<C3;
+    cout<<"Multiplication:";
+    cout<<C4;
+    
+    
+    
+    return 0;
+}
